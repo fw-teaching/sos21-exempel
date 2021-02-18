@@ -43,4 +43,20 @@ public class Statistics {
         return median;
     }
 
+    // Standardavvikelse (Standard Deviation)
+    public static Double calcSD(ArrayList<Double> dataValues) {
+
+        double sumDiff = 0;
+        double avg = calcAverage(dataValues);
+
+        //Summan av de enskilda skillnaderna från medelvärdet i kvadrat:
+        for (Double dataVal: dataValues) {
+            sumDiff += Math.pow(dataVal - avg, 2);
+        }
+
+        // Kvadratroten av variansen delat med antalet värden
+        return Math.sqrt(sumDiff / dataValues.size());
+
+    }
+
 }

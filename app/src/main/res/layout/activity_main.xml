@@ -61,4 +61,14 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textViewOut" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:onClick="resetView"
+        android:text="Reset"
+        app:layout_constraintStart_toStartOf="@+id/buttonOk"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOk" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewOut;
     TextView textViewCalcOut;
 
-    ArrayList<Double> dataset = new ArrayList<>();
-    ArrayList<String> dataLabels = new ArrayList<>();
+    ArrayList<Double> dataset;
+    ArrayList<String> dataLabels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         editTextNumberSigned = findViewById(R.id.editTextNumberSigned);
         textViewOut = findViewById(R.id.textViewOut);
+
+        initData();
 
         //En "slarvig" samlingsview för all vår output
         textViewCalcOut = findViewById(R.id.textViewCalcOut);
@@ -50,14 +52,35 @@ public class MainActivity extends AppCompatActivity {
         dataset.add(numberToCalculate);
         dataLabels.add(labelText);
 
-
+        // Visa vår nuvarande datamängd
         textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
 
         // Vi använder String.format för att skriva ut alla våra uträkningar i vår View
-        textViewCalcOut.setText(String.format("Medelvärde: %.2f\nMedianvärde: %.2f\n",
+        textViewCalcOut.setText(String.format("%s: %.2f\n%s: %.2f\n%s: %.2f",
+                "Medelvärde",
                 Statistics.calcAverage(dataset),
-                Statistics.calcMedian(dataset)
+                "Medianvärde",
+                Statistics.calcMedian(dataset),
+                "Standardavvikelse",
+                Statistics.calcSD(dataset)
         ));
-
     }
+
+    // Körs när man trycker på Reset
+    public void resetView(View view) {
+        // Töm datamängdsfältet
+        textViewOut.setText("");
+        // Töm resultaten
+        textViewCalcOut.setText("");
+        // Nollställ datamängden
+        initData();
+    }
+
+    // Initialiserar (och nollställer) vår datamängd
+    public void initData() {
+        dataset = new ArrayList<>();
+        dataLabels = new ArrayList<>();
+    }
+
+
 }
