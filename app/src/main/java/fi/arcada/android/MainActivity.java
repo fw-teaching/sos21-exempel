@@ -8,12 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     // https://medium.com/@doyouseeitmyway/initialize-views-inside-of-oncreate-d72237b6f870
     EditText editTextName;
     EditText editTextNumberSigned;
     TextView textViewOut;
+
+    ArrayList<Double> dataset = new ArrayList<>();
+    ArrayList<String> dataLabels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,13 @@ public class MainActivity extends AppCompatActivity {
         String labelText = editTextName.getText().toString();
         double numberToCalculate = Double.parseDouble(editTextNumberSigned.getText().toString());
 
-        textViewOut.setText(String.format("label är %s, siffran är %.2f", labelText, numberToCalculate));
+        editTextName.setText("");
+        editTextNumberSigned.setText("");
+
+        dataset.add(numberToCalculate);
+        dataLabels.add(labelText);
+
+        textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
 
     }
 }
