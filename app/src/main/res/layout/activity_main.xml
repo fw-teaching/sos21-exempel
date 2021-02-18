@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Appen funkar!"
+        android:text="Datamängden"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
@@ -54,20 +54,11 @@
         app:layout_constraintStart_toEndOf="@+id/editTextName" />
 
     <TextView
-        android:id="@+id/textViewAvearge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Medelvärde"
+        android:id="@+id/textViewCalcOut"
+        android:layout_width="225dp"
+        android:layout_height="144dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textViewOut" />
-
-    <TextView
-        android:id="@+id/textViewAverageOut"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewAvearge"
-        app:layout_constraintStart_toEndOf="@+id/textViewAvearge" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

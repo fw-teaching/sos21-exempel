@@ -2,6 +2,7 @@ package fi.arcada.android;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import android.view.View;
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextName;
     EditText editTextNumberSigned;
     TextView textViewOut;
-    TextView textViewAverageOut;
+    TextView textViewCalcOut;
 
     ArrayList<Double> dataset = new ArrayList<>();
     ArrayList<String> dataLabels = new ArrayList<>();
@@ -29,14 +30,19 @@ public class MainActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         editTextNumberSigned = findViewById(R.id.editTextNumberSigned);
         textViewOut = findViewById(R.id.textViewOut);
-        textViewAverageOut = findViewById(R.id.textViewAverageOut);
+
+        //En "slarvig" samlingsview för all vår output
+        textViewCalcOut = findViewById(R.id.textViewCalcOut);
 
     }
 
+    @SuppressLint("DefaultLocale")
     public void calculate(View view) {
 
         String labelText = editTextName.getText().toString();
-        double numberToCalculate = Double.parseDouble(editTextNumberSigned.getText().toString());
+        double numberToCalculate = Double.parseDouble(
+                editTextNumberSigned.getText().toString()
+        );
 
         editTextName.setText("");
         editTextNumberSigned.setText("");
@@ -44,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
         dataset.add(numberToCalculate);
         dataLabels.add(labelText);
 
+
         textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
 
-        // Medelvärde
-        Double avg = Statistics.calcAverage(dataset);
-        textViewAverageOut.setText(String.format("%.2f", avg));
+        // Vi använder String.format för att skriva ut alla våra uträkningar i vår View
+        textViewCalcOut.setText(String.format("Medelvärde: %.2f\nMedianvärde: %.2f\n",
+                Statistics.calcAverage(dataset),
+                Statistics.calcMedian(dataset)
+        ));
 
     }
 }
