@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextName;
     EditText editTextNumberSigned;
     TextView textViewOut;
+    TextView textViewAverageOut;
 
     ArrayList<Double> dataset = new ArrayList<>();
     ArrayList<String> dataLabels = new ArrayList<>();
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         editTextNumberSigned = findViewById(R.id.editTextNumberSigned);
         textViewOut = findViewById(R.id.textViewOut);
+        textViewAverageOut = findViewById(R.id.textViewAverageOut);
 
     }
 
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         dataLabels.add(labelText);
 
         textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
+
+        // Medelvärde
+        Double avg = Statistics.calcAverage(dataset);
+        textViewAverageOut.setText(String.format("%.2f", avg));
 
     }
 }
