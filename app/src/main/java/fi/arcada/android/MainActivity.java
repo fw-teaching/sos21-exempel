@@ -56,13 +56,11 @@ public class MainActivity extends AppCompatActivity {
         textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
 
         // Vi använder String.format för att skriva ut alla våra uträkningar i vår View
-        textViewCalcOut.setText(String.format("%s: %.2f\n%s: %.2f\n%s: %.2f",
-                "Medelvärde",
-                Statistics.calcAverage(dataset),
-                "Medianvärde",
-                Statistics.calcMedian(dataset),
-                "Standardavvikelse",
-                Statistics.calcSD(dataset)
+        textViewCalcOut.setText(String.format("%s: %.2f\n%s: %.2f\n%s: %.2f\n%s: %.2f",
+                "Medelvärde", Statistics.calcAverage(dataset),
+                "Medianvärde", Statistics.calcMedian(dataset),
+                "Typvärde:", Statistics.calcMode(dataset),
+                "Standardavvikelse", Statistics.calcSD(dataset)
         ));
     }
 

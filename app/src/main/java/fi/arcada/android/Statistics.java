@@ -2,6 +2,7 @@ package fi.arcada.android;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class Statistics {
 
@@ -41,6 +42,35 @@ public class Statistics {
         }
 
         return median;
+    }
+
+    // Typvärde
+    public static double calcMode(ArrayList<Double> dataValues) {
+        //Skapa en HashMap (key/value-datastruktur) för räknaren
+        HashMap<Double,Integer> valueCount = new HashMap<>();
+
+        // Loopa igenom värdena och öka varje värdes count med 1
+        for (Double dataValue : dataValues) {
+            Integer count = valueCount.get(dataValue);
+
+            // Lägg till 1 till nuvarande count för värdet
+            // "ternary"-operation: om count är null, sätt till 0, annars använd count
+            // Kolla t.ex. https://www.baeldung.com/java-ternary-operator
+            valueCount.put(dataValue, (count == null ? 0 : count) +1);
+        }
+
+        int maxCount = 0;
+        Double modeValue = 0.0;
+
+        for (Double dataValue : valueCount.keySet()) {
+            Integer curCount = valueCount.get(dataValue);
+            if (curCount != null && curCount > maxCount) {
+                maxCount = curCount; // t.ex. 5 st
+                modeValue = dataValue; // t.ex. 8.0
+            }
+        }
+
+        return modeValue;
     }
 
     // Standardavvikelse (Standard Deviation)
