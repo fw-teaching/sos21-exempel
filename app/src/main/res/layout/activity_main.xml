@@ -6,14 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPersons"
+        android:layout_width="325dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCalcOut" />
+
     <TextView
         android:id="@+id/textViewOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:text="Datamängden"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewPersons" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -29,7 +38,6 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,18 +46,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:onClick="calculate"
-        android:text="OK"
+        android:onClick="addPerson"
+        android:text="LÄGG TILL"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextName"
-        app:layout_constraintStart_toEndOf="@+id/editTextNumberSigned" />
+        app:layout_constraintStart_toEndOf="@+id/editTextAge" />
 
     <EditText
-        android:id="@+id/editTextNumberSigned"
+        android:id="@+id/editTextAge"
         android:layout_width="61dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/editTextName"
         app:layout_constraintStart_toEndOf="@+id/editTextName" />
 
@@ -57,18 +65,27 @@
         android:id="@+id/textViewCalcOut"
         android:layout_width="225dp"
         android:layout_height="144dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/textViewOut" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonCalculate" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="resetView"
-        android:text="Reset"
-        app:layout_constraintStart_toStartOf="@+id/buttonOk"
-        app:layout_constraintTop_toBottomOf="@+id/buttonOk" />
+        android:layout_marginTop="20dp"
+        android:onClick="calculate"
+        android:text="Räkna"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+    <TextView
+        android:id="@+id/errorOutput"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/buttonCalculate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

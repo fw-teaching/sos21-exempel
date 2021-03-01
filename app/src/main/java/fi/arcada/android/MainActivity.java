@@ -1,13 +1,18 @@
 package fi.arcada.android;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -15,12 +20,15 @@ public class MainActivity extends AppCompatActivity {
 
     // https://medium.com/@doyouseeitmyway/initialize-views-inside-of-oncreate-d72237b6f870
     EditText editTextName;
-    EditText editTextNumberSigned;
+    EditText editTextAge;
     TextView textViewOut;
     TextView textViewCalcOut;
+    TextView errorOut;
 
-    ArrayList<Double> dataset;
-    ArrayList<String> dataLabels;
+    RecyclerView recyclerViewPersons;
+    PersonsAdapter personsAdapter;
+
+    ArrayList<Person> persons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,29 +36,59 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         editTextName = findViewById(R.id.editTextName);
-        editTextNumberSigned = findViewById(R.id.editTextNumberSigned);
+        editTextAge = findViewById(R.id.editTextAge);
         textViewOut = findViewById(R.id.textViewOut);
-
-        initData();
-
-        //En "slarvig" samlingsview för all vår output
+        errorOut = findViewById(R.id.errorOutput);
         textViewCalcOut = findViewById(R.id.textViewCalcOut);
+
+        recyclerViewPersons = findViewById(R.id.recyclerViewPersons);
+
+        personsAdapter = new PersonsAdapter(this, persons);
+        recyclerViewPersons.setAdapter(personsAdapter);
+        recyclerViewPersons.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+    public void addPerson(View view) {
+
+        errorOut.setText("");
+
+        if (TextUtils.isEmpty(editTextName.getText()) || TextUtils.isEmpty(editTextAge.getText())) {
+
+            Toast message = Toast.makeText(this, "Fyll i båda fälten!", Toast.LENGTH_SHORT);
+            message.setGravity(Gravity.TOP, 0, 100);
+            message.show();
+
+            // Alternativt sätt att visa felmeddelandet
+            errorOut.setText("Fyll i båda fälten!");
+
+        } else {
+
+            String personName = editTextName.getText().toString();
+            int personAge =  Integer.parseInt(editTextAge.getText().toString());
+
+            editTextName.setText("");
+            editTextAge.setText("");
+
+            //typ   variabel new  klasskonstruktor
+            Person person = new Person(personName, personAge);
+            persons.add(person);
+
+            // Kortare sätt att göra samma sak:
+            //persons.add(new Person(personName, personAge));
+        }
+
 
     }
 
     @SuppressLint("DefaultLocale")
     public void calculate(View view) {
 
-        String labelText = editTextName.getText().toString();
-        double numberToCalculate = Double.parseDouble(
-                editTextNumberSigned.getText().toString()
-        );
+        ArrayList<Double> dataset = new ArrayList<>();
 
-        editTextName.setText("");
-        editTextNumberSigned.setText("");
-
-        dataset.add(numberToCalculate);
-        dataLabels.add(labelText);
+        for (Person person : persons) {
+            dataset.add((double) person.getAge());
+        }
 
         // Visa vår nuvarande datamängd
         textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
@@ -64,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
+
+
     // Körs när man trycker på Reset
     public void resetView(View view) {
         // Töm datamängdsfältet
@@ -71,13 +111,6 @@ public class MainActivity extends AppCompatActivity {
         // Töm resultaten
         textViewCalcOut.setText("");
         // Nollställ datamängden
-        initData();
-    }
-
-    // Initialiserar (och nollställer) vår datamängd
-    public void initData() {
-        dataset = new ArrayList<>();
-        dataLabels = new ArrayList<>();
     }
 
 
