@@ -18,10 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    // https://medium.com/@doyouseeitmyway/initialize-views-inside-of-oncreate-d72237b6f870
     EditText editTextName;
     EditText editTextAge;
-    TextView textViewOut;
     TextView textViewCalcOut;
     TextView errorOut;
 
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
         editTextName = findViewById(R.id.editTextName);
         editTextAge = findViewById(R.id.editTextAge);
-        textViewOut = findViewById(R.id.textViewOut);
         errorOut = findViewById(R.id.errorOutput);
         textViewCalcOut = findViewById(R.id.textViewCalcOut);
 
@@ -46,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         personsAdapter = new PersonsAdapter(this, persons);
         recyclerViewPersons.setAdapter(personsAdapter);
         recyclerViewPersons.setLayoutManager(new LinearLayoutManager(this));
+
+        persons.add(new Person("Pelle", 10));
+        persons.add(new Person("Kalle", 11));
+        persons.add(new Person("Lisa", 12));
+        persons.add(new Person("Anna", 13));
 
     }
 
@@ -70,14 +72,10 @@ public class MainActivity extends AppCompatActivity {
             editTextName.setText("");
             editTextAge.setText("");
 
-            //typ   variabel new  klasskonstruktor
-            Person person = new Person(personName, personAge);
-            persons.add(person);
+            persons.add(new Person(personName, personAge));
+            personsAdapter.notifyItemInserted(persons.size()-1);
 
-            // Kortare sätt att göra samma sak:
-            //persons.add(new Person(personName, personAge));
         }
-
 
     }
 
@@ -90,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
             dataset.add((double) person.getAge());
         }
 
-        // Visa vår nuvarande datamängd
-        textViewOut.setText(String.format("datamängden:\n %s", dataset.toString()));
-
         // Vi använder String.format för att skriva ut alla våra uträkningar i vår View
         textViewCalcOut.setText(String.format("%s: %.2f\n%s: %.2f\n%s: %.2f\n%s: %.2f",
                 "Medelvärde", Statistics.calcAverage(dataset),
@@ -102,16 +97,6 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
-
-
-    // Körs när man trycker på Reset
-    public void resetView(View view) {
-        // Töm datamängdsfältet
-        textViewOut.setText("");
-        // Töm resultaten
-        textViewCalcOut.setText("");
-        // Nollställ datamängden
-    }
 
 
 }
