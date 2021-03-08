@@ -6,15 +6,6 @@ import java.util.HashMap;
 
 public class Statistics {
 
-    // Medelvärde
-    public static Double calcAverage(ArrayList<Double> dataValues) {
-        Double sum = 0.0;
-        for (int i = 0; i < dataValues.size(); i++) {
-            sum += dataValues.get(i);
-        }
-        return sum / dataValues.size();
-
-    }
 
     // en simpel metod för att sortera vår datamängd
     // Den här kan vi använda i andra metoder som behöver sorterade värden
@@ -24,6 +15,16 @@ public class Statistics {
         Collections.sort(sorted);
 
         return sorted;
+    }
+
+    // Medelvärde
+    public static Double calcAverage(ArrayList<Double> dataValues) {
+        Double sum = 0.0;
+        for (int i = 0; i < dataValues.size(); i++) {
+            sum += dataValues.get(i);
+        }
+        return sum / dataValues.size();
+
     }
 
     // Median - mittersta värdet i en sorterad datamängd
