@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    // https://medium.com/@doyouseeitmyway/initialize-views-inside-of-oncreate-d72237b6f870
     EditText editTextName;
     EditText editTextNumberSigned;
     TextView textViewOut;
