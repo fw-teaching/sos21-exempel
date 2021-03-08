@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Statistics {
 
-
+    // Medelvärde
     public static Double calcAverage(ArrayList<Double> dataValues) {
         Double sum = 0.0;
         for (int i = 0; i < dataValues.size(); i++) {
