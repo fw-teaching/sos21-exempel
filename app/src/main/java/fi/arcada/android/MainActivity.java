@@ -14,9 +14,14 @@ public class MainActivity extends AppCompatActivity {
 
     TextView myText;
     TextView textSetting;
+    TextView textViewCount;
+
+    int runCount;
 
     // 1. Deklarera ett SharedPreferences-objekt
     SharedPreferences prefs;
+    // 4. Instansiera ett Editor-objekt för att kunna ändra på preferences
+    SharedPreferences.Editor prefsEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         myText = findViewById(R.id.editTextView);
         textSetting = findViewById(R.id.textSetting);
+        textViewCount = findViewById(R.id.textViewCount);
 
         // 2. Instansiera prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -38,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
                 prefs.getString("textSetting", "def val")
         );
 
+        // Läsa heltal
+        runCount = prefs.getInt("counter", 0);
+        // Skriva heltal
+        prefsEditor = prefs.edit();
+        prefsEditor.putInt("counter", runCount+1);
+        prefsEditor.apply();
+
+
+        textViewCount.setText(String.format("%s", runCount));
+
     }
 
 
@@ -49,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // If-satser för att kontrollera vilken knapp vi tyckt på
         // view.getId() returnerar id för knappen vi tryckte på.
         if (view.getId() == R.id.buttonSave) {
-            // 4. Instansiera ett Editor-objekt för att kunna ändra på preferences
-            SharedPreferences.Editor prefsEditor = prefs.edit();
+            prefsEditor = prefs.edit();
 
             // 5. spara värdet från myText-fältet som "myOtherText" i prefs
             prefsEditor.putString("myOtherText", myText.getText().toString());
