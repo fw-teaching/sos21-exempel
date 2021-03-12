@@ -1,34 +1,66 @@
 package fi.arcada.android;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import android.text.TextUtils;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    GraphView graph;
+    ArrayList<Double> graphData = new ArrayList<>(
+            Arrays.asList(10.0, 22.0, 29.0, 2.0, 20.0, 41.0, 10.0, 33.0, 12.0, 24.0)
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        graph = findViewById(R.id.graph);
+
+        buildGraph(graph, graphData);
+
         movingAvg();
 
     }
+
+
+    public void buildGraph(GraphView graph, ArrayList<Double> dataset) {
+
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(0);
+        graph.getViewport().setMaxY(60);
+
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<>();
+        LineGraphSeries<DataPoint> otherSeries = new LineGraphSeries<>();
+        otherSeries.setColor(Color.GREEN);
+
+
+        for (int i = 0; i < dataset.size(); i++) {
+            series.appendData(new DataPoint(i, dataset.get(i)),true, dataset.size());
+        }
+
+        for (int i = 0; i < dataset.size(); i++) {
+            otherSeries.appendData(new DataPoint(i, dataset.get(i)+5),true, dataset.size());
+        }
+
+        graph.addSeries(series);
+        graph.addSeries(otherSeries);
+
+    }
+
+
+
+
 
 
     /** Att räkna glidande medelvärde i kod
@@ -50,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = window-1; i < dataset.length; i++) {
             // Ett sätt att göra det, men hur funkar den här metoden med större fönster
             // eller om vi vill ha en app där vi kan ändra fönsterstorlek?
-            ma.add((dataset[i-0]
+            ma.add((dataset[i]
                     +dataset[i-1]
                     +dataset[i-2]
                     +dataset[i-3])/4);
@@ -71,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 ma.toString(),
                 betterMa.toString()
         ));
-
     }
 
 
