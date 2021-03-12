@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textSetting;
     TextView textViewCount;
 
-    int runCount;
 
     // 1. Deklarera ett SharedPreferences-objekt
     SharedPreferences prefs;
@@ -44,14 +43,15 @@ public class MainActivity extends AppCompatActivity {
                 prefs.getString("textSetting", "def val")
         );
 
-        // Läsa heltal
-        runCount = prefs.getInt("counter", 0);
-        // Skriva heltal
+
+        // Läsa heltal från SharedPreferences
+        // (i det här fallet en räknare för hur många gånger MainActivity öppnats)
+        int runCount = prefs.getInt("counter", 0);
+        // Skriva heltal till SharedPreferences
         prefsEditor = prefs.edit();
         prefsEditor.putInt("counter", runCount+1);
         prefsEditor.apply();
-
-
+        // Skriv ut värdet av runCount till en TextView
         textViewCount.setText(String.format("%s", runCount));
 
     }
