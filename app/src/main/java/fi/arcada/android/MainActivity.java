@@ -18,15 +18,34 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    EditText myNumber;
+    TextView textViewOut;
+
+    double myNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        myNumber = findViewById(R.id.numberInput);
+        textViewOut = findViewById(R.id.textView);
 
     }
 
+    @SuppressLint("DefaultLocale")
+    public void buttonClick(View view) {
 
+        try {
+            myNum = Double.parseDouble(myNumber.getText().toString());
+            textViewOut.setText(String.format("Du skrev: %.2f", myNum ));
+
+        } catch (NumberFormatException e) {
+
+            textViewOut.setText("Du skrev inte ett tal!");
+        }
+
+
+    }
 
 }
