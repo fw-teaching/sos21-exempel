@@ -10,10 +10,15 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     *    DETTA GICKS IGENOM PÅ NYTT PÅ LEKTION 7, finns i slutet av lektionsvideon!
+     */
 
     // Vi deklarerar ett GraphView-objekt
     // OBS för att detta ska funka måste vi lägga till biblioteket i app/build.gradle (Module)!
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             // Variabel för summan
             int sum = 0;
             // Inre loop för alla värden som hör till fönstret
+
             for (int j = 0; j < window; j++) {
                 // Gå j steg bakåt och addera det värdet till summan
                 sum += dataset[i-j];
